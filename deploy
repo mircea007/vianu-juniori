@@ -1,0 +1,7 @@
+#!/bin/bash
+source ./.env
+
+python3 ../info-blog/compile.py ./lectii upload.zip || exit 1
+scp upload.zip $REMOTE_USER@$REMOTE_HOST:~/public_html/blog/upload.zip || exit 1
+ssh $REMOTE_USER@$REMOTE_HOST "cd ~/public_html/blog/ && unzip -o upload.zip && rm upload.zip" || exit 1
+
